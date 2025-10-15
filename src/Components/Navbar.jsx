@@ -3,11 +3,19 @@ import { Link } from 'react-router';
 
 const Navbar = () => {
     const[currentDate,setCurrentDate] =  useState(new Date())
+       
+    const formatedDate = currentDate.toLocaleDateString("en-US",{
+   weekday:"long",
+   month:"long",
+    day:"numeric",
+    year:"numeric"
+    })
+
     return (
         <div>
              <img className='mx-auto mt-4' src="/logo.png" alt="" />
               <p className='text-center text-lg mt-2'>Journalism Without Fear or Favor</p>
-               <p className='text-center text-2xl mt-2'>{currentDate.toLocaleDateString()}</p>
+               <p className='text-center text-2xl mt-2'>{formatedDate}</p>
             <div className="navbar bg-base-100 shadow-sm">
   <div className="navbar-start">
     <div className="dropdown">
@@ -32,7 +40,7 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn">Login</a>
+    <a className="btn mr-10">Login</a>
   </div>
 </div>
         </div>

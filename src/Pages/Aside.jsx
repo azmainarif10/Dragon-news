@@ -10,10 +10,13 @@ const Aside = () => {
            {
           catagories.map(category=> {
             return(
-            <div key={category.category_id} className='flex flex-col justify-center'>
+                <>
+            
+            <div key={category.category_id} className='flex flex-col  justify-center'>
                 
-                <p>{category.category_name}</p>
+                <p className='mt-3'>{category.category_name}</p>
             </div>
+            </>
             )
           })
            }
