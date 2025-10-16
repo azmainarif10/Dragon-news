@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { Link } from 'react-router';
+import { AuthContext } from '../Pages/AuthContext';
 
 const Navbar = () => {
-    const[currentDate,setCurrentDate] =  useState(new Date())
+
+  const {user,logOut} = use(AuthContext)
+    const[currentDate] =  useState(new Date())
        
     const formatedDate = currentDate.toLocaleDateString("en-US",{
    weekday:"long",
@@ -40,7 +43,12 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn mr-10">Login</a>
+    
+    
+   {
+    user ? (<Link onClick={logOut} className="btn mr-10"> Logout </Link>) :(<Link to={'/login'} className="btn mr-10">Login </Link>)
+   }
+    
   </div>
 </div>
         </div>

@@ -1,22 +1,25 @@
-import React from 'react';
+import React, { use } from 'react';
 import useCatagories from '../Utils/catagories';
+import { AuthContext } from './AuthContext';
 
 const Aside = () => {
 
     const catagories = useCatagories()
-    console.log(catagories)
+   
+    const {setSelectedCatagories} = use(AuthContext)
     return (
         <div>
            {
           catagories.map(category=> {
             return(
-                <>
-            
-            <div key={category.category_id} className='flex flex-col  justify-center'>
                 
-                <p className='mt-3'>{category.category_name}</p>
+            
+            <div onClick={()=>{setSelectedCatagories(category.category_id)}}  key={category.category_id} className='flex flex-col  justify-center'>
+                
+                <p  className='mt-3'>{category.category_name}</p>
             </div>
-            </>
+           
+            
             )
           })
            }

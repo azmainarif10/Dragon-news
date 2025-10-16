@@ -7,6 +7,11 @@ import Root from './Latouts/Root';
 import Home from './Pages/Home';
 import About from './Pages/About';
 import Career from './Pages/Career';
+import AuthProvider from './Pages/AuthProvider';
+import Login from './Pages/Login';
+import Register from './Pages/Register';
+import Private from './Pages/Private';
+import Details from './Pages/Details';
 
 const router = createBrowserRouter([
   {
@@ -25,7 +30,22 @@ const router = createBrowserRouter([
        {
            path:'/career',
          Component:Career,
+      },
+      {
+           path:'/login',
+         Component:Login,
+      },
+       {
+           path:'/register',
+         Component: Register,
+      },
+      {
+           path:'/details',
+           element:<Private>
+            <Details></Details>
+           </Private>
       }
+
 
 
     ]
@@ -35,6 +55,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+  <AuthProvider>
+      <RouterProvider router={router}></RouterProvider>
+  </AuthProvider>
   </StrictMode>,
 )
