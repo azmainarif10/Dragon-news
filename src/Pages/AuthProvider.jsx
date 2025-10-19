@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
-import { createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../Utils/fireBase.init';
 
 const AuthProvider = ({children}) => {
@@ -9,9 +9,10 @@ const AuthProvider = ({children}) => {
     const gitProvider = new GithubAuthProvider();
 
     const [user,setUser] = useState(null)
+    const [loading,setLoading] = useState(true)
    
-    const [selectedCatagories,setSelectedCatagories] = useState(null)
-    const [readId,setReadId] =useState(null)
+    const [selectedCatagories,setSelectedCatagories] = useState(0)
+   
     const createUser = (email,password)=>{
                 
         return createUserWithEmailAndPassword(auth,email,password)
@@ -31,7 +32,8 @@ const AuthProvider = ({children}) => {
 
  if(currentUser){
     console.log(currentUser)
-    setUser(currentUser)
+    setUser(currentUser || null)
+    setLoading(false)
  }else{
     setUser(null)
  }
@@ -59,11 +61,15 @@ const gitPopUp = () =>{
     return signInWithPopup(auth,gitProvider)
 }
 
-
-
+const updateUser = (name,url) =>{
+    return updateProfile(auth.currentUser,{
+    displayName:name,
+    photoURL:url,
+    })
+}
     return (
         <div>
-            <AuthContext value={{readId,setReadId,selectedCatagories,setSelectedCatagories,createUser,signUser,user,logOut,googlePopUp,gitPopUp}} >
+            <AuthContext value={{setUser,updateUser,loading,selectedCatagories,setSelectedCatagories,createUser,signUser,user,logOut,googlePopUp,gitPopUp}} >
                 {children}
             </AuthContext>
         </div>

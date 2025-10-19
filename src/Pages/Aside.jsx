@@ -1,6 +1,7 @@
 import React, { use } from 'react';
 import useCatagories from '../Utils/catagories';
 import { AuthContext } from './AuthContext';
+import { NavLink } from 'react-router';
 
 const Aside = () => {
 
@@ -8,16 +9,17 @@ const Aside = () => {
    
     const {setSelectedCatagories} = use(AuthContext)
     return (
-        <div>
+        <div className='flex flex-col gap-2'>
            {
           catagories.map(category=> {
             return(
                 
             
-            <div onClick={()=>{setSelectedCatagories(category.category_id)}}  key={category.category_id} className='flex flex-col  justify-center'>
+            <NavLink onClick={()=>{setSelectedCatagories(category.id)}}  key={category.id} className='flex btn border-0 gap-6 flex-col  justify-center'>
                 
-                <p  className='mt-3'>{category.category_name}</p>
-            </div>
+                <p>{category.name}</p> 
+                </NavLink> 
+           
            
             
             )

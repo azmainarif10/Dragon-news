@@ -40,7 +40,7 @@ const router = createBrowserRouter([
          Component: Register,
       },
       {
-           path:'/details',
+           path:'/details/:id',
            element:<Private>
             <Details></Details>
            </Private>

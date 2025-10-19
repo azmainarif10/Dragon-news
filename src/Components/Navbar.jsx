@@ -1,24 +1,16 @@
-import React, { use, useState } from 'react';
+import React, { use} from 'react';
 import { Link } from 'react-router';
 import { AuthContext } from '../Pages/AuthContext';
+import Header from './Header';
 
 const Navbar = () => {
 
   const {user,logOut} = use(AuthContext)
-    const[currentDate] =  useState(new Date())
-       
-    const formatedDate = currentDate.toLocaleDateString("en-US",{
-   weekday:"long",
-   month:"long",
-    day:"numeric",
-    year:"numeric"
-    })
+   
 
     return (
         <div>
-             <img className='mx-auto mt-4' src="/logo.png" alt="" />
-              <p className='text-center text-lg mt-2'>Journalism Without Fear or Favor</p>
-               <p className='text-center text-2xl mt-2'>{formatedDate}</p>
+            
             <div className="navbar bg-base-100 shadow-sm">
   <div className="navbar-start">
     <div className="dropdown">
@@ -42,11 +34,17 @@ const Navbar = () => {
         <Link to={'/career'}>Career</Link>
     </ul>
   </div>
-  <div className="navbar-end">
+  <div className="navbar-end flex gap-2.5">
     
-    
+   
+ 
+ {
+  user && user.photoURL ?( <img  className='w-10 h-full rounded-full' src={user.photoURL}></img>  ) : 
+  ( <img  className='w-10 h-full rounded-full' src='/user.png'></img>  )
+ }
+
    {
-    user ? (<Link onClick={logOut} className="btn mr-10"> Logout </Link>) :(<Link to={'/login'} className="btn mr-10">Login </Link>)
+    user ? (<Link onClick={logOut} className="btn mr-10 text-white bg-[#404040]"> Logout </Link>) :(<Link to={'/login'} className="btn mr-10">Login </Link>)
    }
     
   </div>

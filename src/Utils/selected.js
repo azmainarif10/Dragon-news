@@ -7,18 +7,12 @@ import { AuthContext } from "../Pages/AuthContext"
    const[selected,setSelected] = useState([])
   
     useEffect(()=>{
-       let url ='';
-        if(!selectedCatagories) {
-            url = 'https://openapi.programming-hero.com/api/news/category/08'
-        }else{
-            url = `https://openapi.programming-hero.com/api/news/category/${selectedCatagories}`
-        }
-
+       
    const datas = async() =>{
   
-      const response = await fetch(url)
+      const response = await fetch('/news.json')
     const data = await response.json()
-       setSelected(data.data)
+       setSelected(data)
    }
 
 

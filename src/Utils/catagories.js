@@ -8,9 +8,9 @@ import { useEffect, useState } from "react"
 
    const datas = async() =>{
   
-      const response = await fetch('https://openapi.programming-hero.com/api/news/categories')
+      const response = await fetch('/catagories.json')
     const data = await response.json()
-       setCatagories(data.data.news_category)
+       setCatagories(data)
    }
 
 

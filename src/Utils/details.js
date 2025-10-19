@@ -1,18 +1,21 @@
-import { use, useEffect, useState } from "react"
-import { AuthContext } from "../Pages/AuthContext"
+import {  useEffect, useState } from "react"
+
+import { useParams } from "react-router"
 
      
   const useDetail = () => { 
    const[details,setDetails] = useState([])
-   const{readId} = use(AuthContext)
-
+    const {id} =useParams()
+ 
     useEffect(()=>{
 
    const datas = async() =>{
   
-      const response = await fetch(`https://openapi.programming-hero.com/api/news/${readId}`)
+      const response = await fetch('/news.json')
     const data = await response.json()
-       setDetails(data.data)
+      const filteredDetails = data.filter(select=>select.id == id)
+  
+       setDetails(filteredDetails)
    }
 
 
@@ -20,7 +23,7 @@ datas()
     }
    
     
-    ,[readId])
+    ,[id])
   
    return details;
 

@@ -2,10 +2,12 @@
 import { use } from 'react';
 import { AuthContext } from './AuthContext';
 import { Navigate, useNavigate } from 'react-router';
+import Navbar from '../Components/Navbar';
+import { auth } from '../Utils/fireBase.init';
 
 const Register = () => {
 
-  const {createUser} = use(AuthContext)
+  const {createUser,updateUser,setUser} = use(AuthContext)
 
 
   const navigate = useNavigate()
@@ -14,9 +16,20 @@ const Register = () => {
         e.preventDefault()
    const email = e.target.email.value
    const password = e.target.password.value
+   const name = e.target.name.value
+   const url = e.target.url.value
       createUser(email,password)
       .then(result =>{
         console.log(result)
+         updateUser(name,url)
+         .then(result =>{
+          console.log(result)
+          setUser({...auth.currentUser})
+         })
+         .catch(error =>{
+          console.log(error)
+         })
+        navigate('/')
       })
       .catch(error =>{
         console.log(error)
@@ -28,6 +41,7 @@ const Register = () => {
 
     return (
         <div>
+          <Navbar />
            <div className="hero bg-base-200 min-h-screen">
   <div className="hero-content flex-col lg:flex-row-reverse">
     <div className="text-center lg:text-left">
@@ -49,7 +63,7 @@ const Register = () => {
           <label className="label">Password</label>
           <input type="password" name='password'  className="input" placeholder="Password" />
         
-          <button onClick={()=>{navigate('/')}} className="btn btn-neutral mt-4">Register</button>
+          <button  className="btn btn-neutral mt-4">Register</button>
          
         </fieldset>
          

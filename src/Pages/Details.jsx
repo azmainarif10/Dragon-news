@@ -1,16 +1,22 @@
 import React, { useEffect } from 'react';
 import RightSide from '../Components/RightSide';
 import useDetail from '../Utils/details';
-import { Link } from 'react-router';
+import { Link} from 'react-router';
+
+import Navbar from '../Components/Navbar';
 
 const Details = () => {
+  
    
      useEffect(()=>{
         window.scrollTo(0,0)
      },[])
     const details = useDetail()
+     
+   
     return (
         <div>
+          <Navbar ></Navbar>
             <div className='w-11/12 mx-auto gap-5 flex '>
             
             <div className='w-8/12 mt-3'>
@@ -22,7 +28,7 @@ const Details = () => {
                      <div className='w-full'>
                 <img className='w-full' src={detail.image_url} alt="" />
                 <p className='py-3.5'>{detail.details}</p>
-               <Link to={'/'}> <button className='btn bg-red-500 text-white'>  All News in this category</button></Link>  
+               <Link  to={'/'} > <button className='btn bg-red-500 text-white'>  All News in this category</button></Link>  
                </div>
             
                  )

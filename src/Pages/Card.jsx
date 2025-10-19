@@ -2,26 +2,25 @@ import React, { use } from 'react';
 import { FaBookmark, FaEye, FaShare, FaStar, } from 'react-icons/fa';
 import useSelected from '../Utils/selected';
 import { AuthContext } from './AuthContext';
-import { useNavigate } from 'react-router';
+import { Link } from 'react-router';
 
 const Card = () => {
-     const {user} = use(AuthContext) 
-    const selected = useSelected()
-    const navigate =useNavigate()
-    const {setReadId} = use(AuthContext)
-
-    function handleMore(id){
-      {user ? ( navigate('/details')) : ( navigate('/login')) }
-     setReadId(id)
-
-    }
+      const {selectedCatagories} = use(AuthContext)
     
+    const selected = useSelected()
+    
+   
+     const filteredNews = selectedCatagories === 0 
+     ? selected
+     
+     : selected.filter(select=>select.category_id == selectedCatagories)
     return (
 
-        
-            selected.map(select=>{
+       
+
+            filteredNews.map(select=>{
        return(
-        <div>
+        <div key={select.id}>
            
             <div className="flex w-full flex-col mb-6 border-[1px] border-gray-400 rounded-sm ">
   <div className=" py-3 grid h-17">
@@ -70,7 +69,7 @@ const Card = () => {
             select.details.length>200
             ?`${select.details.slice(0,200)}....` :
                   select.details  }
-                <a onClick={()=>{handleMore(select._id)}} className='text-blue-600 underline' > Read More </a>  
+        <Link to={`/details/${select.id}`} className='text-blue-600 underline' > Read More </Link>  
                   </p>
 
 </div>
